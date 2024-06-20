@@ -1,0 +1,20 @@
+.container{
+    position: absolute;
+    /* left: 100px; */
+
+    padding : 5px;
+}
+.array-bar{
+    width: 2px;
+    background-color: blue;
+    display: inline-block;
+    margin: 0 1px;
+}
+button{
+    padding: 10px;
+    border: none;
+    color: white;
+    background-color: teal;
+    cursor: pointer;
+    margin-left: 10px;
+}
