@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './sortingvisulizer.css';
 import { getMergeSort } from '../Sortingalgo/sortingalgo.js';
 const animationspeed=1;
-const numarraybar=100;
+const numarraybar=55;
 const primarycolor='turquoise';
 const secondrycolor='red';
 
@@ -14,13 +14,16 @@ const Sortingvisulizer = () => {
     useEffect(()=>{
         resetArray();
     },[])
+
     const resetArray=()=>{
         const array=[];
         for(let i=0;i<numarraybar;i++){
-            array.push(randomIntFromInterval(5,600));
+            array.push(randomIntFromInterval(5,500));
         }
+      
         setArray(array);
     }
+
     const handlemergeSort=()=>{
        
           const animations=getMergeSort(array);
@@ -49,20 +52,26 @@ const Sortingvisulizer = () => {
 
   return (
     <div className='container'>
+        <div className='bar'>
+
      {array?.map((val, id)=>(
-                <div className='array-bar' key={id} style={{height:`${val}px`}}>
+         <div className='array-bar' key={id} style={{height:`${val}px`}}>
                  
                     </div>
      )
-
-     )
-
-     }
-     <button onClick={resetArray}>Generate New Array</button>
+     
+    )
+    
+}
+     </div>
+     <div className='types'>
+     <button className='newarray' onClick={resetArray}>Generate New Array</button>
      <button onClick={handlemergeSort}>Merge Sort</button>
      <button onClick={resetArray}>Quick Sort</button>
      <button onClick={resetArray}>Bubble Sort</button>
      <button onClick={resetArray}>Heap Sort</button>
+     </div>
+    
     </div>
 
 
