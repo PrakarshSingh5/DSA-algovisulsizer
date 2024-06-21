@@ -6,7 +6,6 @@
     justify-content: center;
 }
 .array-bar{
-    width: 20px;
     background-color: blue;
     display: inline-block;
     margin: 0 1px;

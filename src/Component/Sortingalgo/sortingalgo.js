@@ -75,3 +75,30 @@ export function getMergeSort(array) {
       mainArray[k++] = auxiliaryArray[j++];
     }
   }
+
+  export function getbubblesort(array){
+        const animations=[];
+        if(array.length<=1)return array;
+
+        bubblesorthelper(array,animations);
+        return animations;
+  }
+  function bubblesorthelper(mainArray, animations ){
+
+      for(let i=0;i<mainArray.length-1;i++){
+        for(let j=0;j<mainArray.length-i-1;j++){
+          animations.push([j,j+1]); //these values are going to compare and push for changing color
+          animations.push([j,j+1]) //again push them to revert their color
+          if(mainArray[j]>mainArray[j+1]){
+              animations.push([j,mainArray[j+1]]);  
+              animations.push([j+1,mainArray[j]]);
+              const val=mainArray[j];
+              mainArray[j]=mainArray[j+1];
+              mainArray[j+1]=val;
+          }else {
+              animations.push([j, mainArray[j]]);
+              animations.push([j + 1, mainArray[j + 1]]);
+          }
+        }
+      }
+  }
