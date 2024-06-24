@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './sortingvisulizer.css';
-import { getMergeSort,getbubblesort } from '../Sortingalgo/sortingalgo.js';
+import { getMergeSort,getbubblesort ,getQuickSort} from '../Sortingalgo/sortingalgo.js';
 const numarraybar=55;
 const primarycolor='turquoise';
 const secondrycolor='red';
@@ -83,6 +83,30 @@ const handleWidthChange = (event) => {
             }
         }
     }
+    const handlequickSort = () => {
+        const animations = getQuickSort(array);
+        const arrayBars = document.getElementsByClassName('array-bar');
+    
+        for (let i = 0; i < animations.length; i++) {
+            const [action, barOneIdx, barTwoOrHeight] = animations[i];
+            const barOneStyle = arrayBars[barOneIdx].style;
+    
+            if (action === "compare" || action === "revert") {
+                const barTwoIdx = barTwoOrHeight;
+                const barTwoStyle = arrayBars[barTwoIdx].style;
+                const color = action === "compare" ? secondrycolor:primarycolor;
+                setTimeout(() => {
+                    barOneStyle.backgroundColor = color;
+                    barTwoStyle.backgroundColor = color;
+                }, i * speed);
+            } else if (action === "swap") {
+                setTimeout(() => {
+                    barOneStyle.height = `${barTwoOrHeight}px`;
+                }, i * speed);
+            }
+        }
+    }
+    
 
   return (
     <div className='container'>
@@ -92,16 +116,13 @@ const handleWidthChange = (event) => {
          <div className='array-bar' key={id} style={{height:`${val}px`, width:`${width}px`}}>
                  
                     </div>
-     )
-     
-    )
-    
-}
+     ))
+    }
      </div>
      <div className='types'>
      <button className='newarray' onClick={resetArray}>Generate New Array</button>
      <button onClick={handlemergeSort}>Merge Sort</button>
-     <button onClick={resetArray}>Quick Sort</button>
+     <button onClick={handlequickSort}>Quick Sort</button>
      <button onClick={handlebubbleSort}>Bubble Sort</button>
      <button onClick={resetArray}>Heap Sort</button>
      <div className='variable'>
