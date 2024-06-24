@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { act, useEffect, useState } from 'react'
 import './sortingvisulizer.css';
-import { getMergeSort,getbubblesort ,getQuickSort} from '../Sortingalgo/sortingalgo.js';
+import { getMergeSort,getbubblesort ,getQuickSort,getheapSort} from '../Sortingalgo/sortingalgo.js';
 const numarraybar=55;
 const primarycolor='turquoise';
 const secondrycolor='red';
@@ -21,7 +21,7 @@ const handleWidthChange = (event) => {
     setWidth(event.target.value);
 };
 
-    const [array, setArray]=useState([]);
+const [array, setArray]=useState([]);
     useEffect(()=>{
         resetArray();
     },[])
@@ -83,6 +83,7 @@ const handleWidthChange = (event) => {
             }
         }
     }
+    //quick sort
     const handlequickSort = () => {
         const animations = getQuickSort(array);
         const arrayBars = document.getElementsByClassName('array-bar');
@@ -106,6 +107,30 @@ const handleWidthChange = (event) => {
             }
         }
     }
+    //heapsort
+    const handleheapSort=()=>{
+        const animations=getheapSort(array);
+        const arrayBars=document.getElementsByClassName('array-bar');
+        for(let i=0;i<animations.length;i++){
+            const [action, barOne, twoBar]=animations[i];
+            const oneBarStyle=arrayBars[barOne].style;
+
+            if(action==='compare' || action==='revert'){
+                const twoBarStyle=arrayBars[twoBar].style;
+                const color = action === "compare" ? secondrycolor:primarycolor;
+                setTimeout(()=>{
+                    oneBarStyle.backgroundColor=color;
+                    twoBarStyle.backgroundColor=color;
+                },i*speed);
+
+            }else if(action==='swap'){
+                    setTimeout(()=>{
+                        oneBarStyle.height=`${twoBar}px`;
+                    },i*speed);
+            }
+        }
+    }
+
     
 
   return (
@@ -124,7 +149,7 @@ const handleWidthChange = (event) => {
      <button onClick={handlemergeSort}>Merge Sort</button>
      <button onClick={handlequickSort}>Quick Sort</button>
      <button onClick={handlebubbleSort}>Bubble Sort</button>
-     <button onClick={resetArray}>Heap Sort</button>
+     <button onClick={handleheapSort}>Heap Sort</button>
      <div className='variable'>
                     <div>
                 <label htmlFor='speed'>Delay: {speed}</label>

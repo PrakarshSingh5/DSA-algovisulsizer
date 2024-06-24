@@ -138,8 +138,55 @@ function partition(array, startIdx, endIdx, animations) {
   return i + 1;
 }
 
+
+export function getheapSort(array){
+    const animations=[];
+    if(array.length<=1)return array;
+    heapSort(array,animations,array.length);
+    return animations;
+    
+}
+
+function heapSort(array, animations, n){
+      //build heap;
+      for(let i=Math.floor(n/2)-1;i>=0;i--){
+        heapify(array,n,i,animations);
+      }
+      //one by one extract an element from heap
+      for(let i=n-1;i>0;i--){
+        animations.push(["swap",0,array[i]]);
+        animations.push(["swap",i,array[0]]);
+        swap(array,0,i);
+        heapify(array,i,0,animations);
+      }
+}
+function heapify(array,n,i,animations){
+    let larg=i;
+    const l=2*i+1;
+    const r=2*i+2;
+    //compare
+    
+    if(l<n&& array[l]>array[larg]){
+      larg=l;
+    }
+    
+    if(r<n && array[r]>array[larg]){
+      larg=r;
+    }
+    if(larg!=i){
+      animations.push(['compare', i, larg]);
+      animations.push(['revert', i, larg]);
+      animations.push(['swap', i, array[larg]]);
+      animations.push(['swap', larg, array[i]]);
+      swap(array,i,larg);
+
+      heapify(array,n,larg,animations);
+    }
+}
+
 function swap(array, i, j) {
   const temp = array[i];
   array[i] = array[j];
   array[j] = temp;
 }
+
