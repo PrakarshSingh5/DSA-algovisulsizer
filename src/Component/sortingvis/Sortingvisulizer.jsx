@@ -33,6 +33,12 @@ const [array, setArray]=useState([]);
         }
       
         setArray(array);
+     const arrayBars = document.getElementsByClassName('array-bar');
+    
+    // Reset all bars to their original color
+    for (let i = 0; i < arrayBars.length; i++) {
+        arrayBars[i].style.backgroundColor = 'blue';
+    }
     }
 
     const handlemergeSort=()=>{
